@@ -1,6 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
-  <rect width="48" height="48" rx="12" fill="#30213A" />
-  <circle cx="24" cy="24" r="16" fill="none" stroke="#F06436" stroke-width="2.5" stroke-dasharray="3 3" />
-  <path d="M16 18 L24 24 L16 30" fill="none" stroke="#F7F1E7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-  <path d="M24 18 L32 24 L24 30" fill="none" stroke="#D9C9E5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <rect x="8" y="8" width="84" height="84" rx="26" fill="#30213A" stroke="#D9C9E5" stroke-width="2" />
+  
+  <!-- "C" Arc -->
+  <path
+    d="M68 34C63 26 53 23 44 26C32 30 25 42 27 54C29 67 40 75 53 74C63 73 70 66 73 57"
+    fill="none"
+    stroke="#EDE5F4"
+    stroke-width="5"
+    stroke-linecap="round"
+  />
+
+  <!-- "T" Crossbeam -->
+  <path d="M34 32H66M50 32V60" fill="none" stroke="#F06436" stroke-width="5.5" stroke-linecap="round" />
+  
+  <!-- Spark -->
+  <path d="M66 43L68.5 48.5L74 51L68.5 53.5L66 59L63.5 53.5L58 51L63.5 48.5L66 43Z" fill="#FFFFFF" />
+  <circle cx="50" cy="46" r="3" fill="#FFFFFF" />
 </svg>

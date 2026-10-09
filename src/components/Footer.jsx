@@ -1,8 +1,9 @@
 // src/components/Footer.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Clock, MessageSquare, Wrench } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, MessageSquare } from 'lucide-react';
 import { businessInfo } from '../data/businessInfo';
+import Logo from './Logo';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -14,8 +15,8 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="footer-col brand-col">
             <div className="brand-logo footer-logo">
-              <div className="brand-icon-box">
-                <Wrench size={20} color="var(--color-orange)" />
+              <div className="brand-logo-wrapper">
+                <Logo size={46} className="brand-logo-svg" />
               </div>
               <div className="brand-text-group">
                 <span className="brand-title" style={{ color: 'var(--color-ivory)' }}>{businessInfo.name}</span>

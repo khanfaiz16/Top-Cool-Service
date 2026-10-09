@@ -1,8 +1,9 @@
 // src/components/Header.jsx
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Phone, Menu, X, Wrench } from 'lucide-react';
+import { Phone, Menu, X } from 'lucide-react';
 import { businessInfo } from '../data/businessInfo';
+import Logo from './Logo';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -13,10 +14,10 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="container header-container">
-        {/* Brand Logo Concept */}
-        <Link to="/" className="brand-logo" onClick={closeMenu}>
-          <div className="brand-icon-box">
-            <Wrench size={20} color="var(--color-orange)" />
+        {/* Brand Logo & Wordmark */}
+        <Link to="/" className="brand-logo" onClick={closeMenu} aria-label="Top Cool Service Home">
+          <div className="brand-logo-wrapper">
+            <Logo size={46} className="brand-logo-svg" />
           </div>
           <div className="brand-text-group">
             <span className="brand-title">{businessInfo.name}</span>
