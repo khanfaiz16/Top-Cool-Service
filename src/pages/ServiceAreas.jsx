@@ -1,6 +1,7 @@
 // src/pages/ServiceAreas.jsx
 import React from 'react';
-import { MapPin, Phone, MessageSquare, CheckCircle, Navigation } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { MapPin, Phone, MessageSquare, CheckCircle, Navigation, ArrowRight } from 'lucide-react';
 import { businessInfo } from '../data/businessInfo';
 import SEOHead from '../components/SEOHead';
 
@@ -8,22 +9,38 @@ export default function ServiceAreas() {
   const regionalGroups = [
     {
       region: 'Western Suburbs',
-      localities: ['Bandra', 'Andheri', 'Santacruz', 'Juhu', 'Dahisar', 'Mira Road'],
+      localities: [
+        { name: 'Bandra', slug: 'bandra' },
+        { name: 'Andheri', slug: 'andheri' },
+        { name: 'Santacruz', slug: 'santacruz' },
+        { name: 'Juhu', slug: 'juhu' },
+        { name: 'Dahisar', slug: 'dahisar' },
+        { name: 'Mira Road', slug: 'mira-road' },
+      ],
       description: 'Daily doorstep visits for coastal and residential apartments across the Western Express corridor.',
     },
     {
       region: 'Central & Eastern Mumbai',
-      localities: ['Powai', 'BKC', 'Kalina'],
+      localities: [
+        { name: 'Powai', slug: 'powai' },
+        { name: 'BKC', slug: 'bkc' },
+        { name: 'Kalina', slug: 'kalina' },
+      ],
       description: 'Prompt service coverage for residential complexes, tech parks, and commercial spaces.',
     },
     {
       region: 'South Mumbai',
-      localities: ['Colaba', 'Marine Lines'],
+      localities: [
+        { name: 'Colaba', slug: 'colaba' },
+        { name: 'Marine Lines', slug: 'marine-lines' },
+      ],
       description: 'Dedicated technician routing for heritage residences, high-rises, and sea-facing apartments.',
     },
     {
       region: 'Thane District',
-      localities: ['Thane'],
+      localities: [
+        { name: 'Thane', slug: 'thane' },
+      ],
       description: 'Comprehensive cooling and appliance repair across Ghodbunder Road, Majiwada, and Thane City.',
     },
   ];
@@ -40,7 +57,7 @@ export default function ServiceAreas() {
           <span className="eyebrow eyebrow-orange">Regional Coverage</span>
           <h1>Appliance Repair Across Mumbai &amp; Thane</h1>
           <p className="section-subtitle" style={{ maxWidth: '720px', margin: '0.75rem auto 1.5rem' }}>
-            We bring expert diagnostics directly to your doorstep in all 12 key localities. No need to lug heavy appliances to a workshop.
+            We bring expert diagnostics directly to your doorstep in all 12 key localities. Click on any neighborhood for local landmark response times.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href={businessInfo.phoneTel} className="btn btn-primary">
@@ -70,22 +87,17 @@ export default function ServiceAreas() {
                   <h3 style={{ margin: 0 }}>{group.region}</h3>
                 </div>
                 <p style={{ fontSize: '0.9rem', marginBottom: '1.25rem' }}>{group.description}</p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
                   {group.localities.map((loc) => (
-                    <span
-                      key={loc}
-                      style={{
-                        padding: '0.4rem 0.85rem',
-                        backgroundColor: 'var(--color-ivory)',
-                        borderRadius: 'var(--radius-sm)',
-                        fontSize: '0.875rem',
-                        fontWeight: '600',
-                        color: 'var(--color-plum)',
-                        border: '1px solid var(--color-border)',
-                      }}
+                    <Link
+                      key={loc.slug}
+                      to={`/service-areas/${loc.slug}`}
+                      className="locality-pill-link"
                     >
-                      {loc}
-                    </span>
+                      <MapPin size={14} color="var(--color-orange)" />
+                      <span>{loc.name}</span>
+                      <ArrowRight size={12} style={{ opacity: 0.6 }} />
+                    </Link>
                   ))}
                 </div>
               </div>

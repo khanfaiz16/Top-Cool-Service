@@ -1,6 +1,6 @@
 /* ==========================================================================
    TOP COOL SERVICE — Complete Application Stylesheet (App.css)
-   Includes Hero Top Animations, Animated Ambient Orbs & Micro-Interactions
+   Includes Full Animated Background Canvas, Ambient Orbs & Micro-Interactions
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -37,6 +37,17 @@
   }
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -46,7 +57,7 @@
   }
 }
 
-/* Organic Floating Ambient Spheres */
+/* Floating Ambient Orbs (Hero & Sections) */
 @keyframes floatOrbTopLeft {
   0% {
     transform: translate(0, 0) scale(1);
@@ -88,7 +99,7 @@
   }
 }
 
-/* Glowing Aura for Primary Action Eyebrow */
+/* Shimmer & Beacon Animations */
 @keyframes badgeShimmer {
   0%, 100% {
     border-color: rgba(240, 100, 54, 0.3);
@@ -100,7 +111,17 @@
   }
 }
 
-/* Floating Light Rays in the Hero Header */
+@keyframes beaconPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.65;
+  }
+}
+
 @keyframes lightPulse {
   0%, 100% {
     opacity: 0.3;
@@ -292,7 +313,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   6. Form Controls & Focus Glow
+   6. Form Controls & Focus States
    -------------------------------------------------------------------------- */
 .form-group {
   display: flex;
@@ -550,7 +571,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   8. Hero Section with Top Animated Ambient Orbs & Subtle Movement
+   8. Hero Section with Top Animated Ambient Orbs & Background Shimmer
    -------------------------------------------------------------------------- */
 .hero-section {
   padding: var(--space-3xl) 0 var(--space-2xl);
@@ -972,6 +993,28 @@
   transform: translateY(-2px);
 }
 
+.locality-pill-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.95rem;
+  background-color: var(--color-ivory);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-plum);
+  transition: all var(--transition-fast);
+}
+
+.locality-pill-link:hover {
+  background-color: var(--color-white);
+  border-color: var(--color-orange);
+  color: var(--color-orange);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-subtle);
+}
+
 /* --------------------------------------------------------------------------
    13. Customer Feedback & Review Notice
    -------------------------------------------------------------------------- */
@@ -1198,7 +1241,119 @@
 }
 
 /* --------------------------------------------------------------------------
-   18. Grids & Utilities
+   18. Floating WhatsApp Live Badge & Beacon
+   -------------------------------------------------------------------------- */
+.floating-whatsapp-wrapper {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  animation: fadeInDown 0.4s var(--ease-spring);
+}
+
+.floating-whatsapp-pill {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 10px 30px rgba(48, 33, 58, 0.16);
+  border-radius: var(--radius-full);
+  padding: 6px 12px 6px 6px;
+  gap: 8px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.floating-whatsapp-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(48, 33, 58, 0.22);
+}
+
+.floating-whatsapp-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.floating-whatsapp-avatar {
+  width: 42px;
+  height: 42px;
+  background-color: #25D366;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+}
+
+.online-beacon {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 11px;
+  height: 11px;
+  background-color: #10B981;
+  border: 2px solid #FFFFFF;
+  border-radius: var(--radius-full);
+  animation: beaconPulse 2s infinite;
+}
+
+.floating-whatsapp-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.floating-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-plum);
+  line-height: 1.2;
+}
+
+.floating-subtitle {
+  font-size: 0.75rem;
+  color: #10B981;
+  font-weight: 600;
+}
+
+.floating-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-ink-muted);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-full);
+  transition: color var(--transition-fast);
+}
+
+.floating-close-btn:hover {
+  color: var(--color-plum);
+}
+
+.floating-whatsapp-bubble-only {
+  width: 54px;
+  height: 54px;
+  background-color: #25D366;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+  position: relative;
+  transition: transform var(--transition-fast);
+}
+
+.floating-whatsapp-bubble-only:hover {
+  transform: scale(1.08);
+}
+
+/* --------------------------------------------------------------------------
+   19. Grids & Utilities
    -------------------------------------------------------------------------- */
 .spin-animation {
   animation: spin 1s linear infinite;

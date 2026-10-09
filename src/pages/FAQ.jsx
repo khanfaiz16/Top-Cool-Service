@@ -34,6 +34,11 @@ export default function FAQ() {
     },
   ];
 
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'FAQ', url: '/faq' },
+  ];
+
   const toggle = (idx) => {
     setOpenIdx(openIdx === idx ? null : idx);
   };
@@ -43,6 +48,8 @@ export default function FAQ() {
       <SEOHead
         title="Appliance Repair FAQ | Charges, Timing & Service Areas"
         description="Answers to common questions about appliance repair costs, doorstep visit timing, and brand compatibility across Mumbai and Thane."
+        faqs={faqs}
+        breadcrumbs={breadcrumbs}
       />
 
       <section className="page-hero-section">

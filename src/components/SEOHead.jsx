@@ -7,6 +7,8 @@ export default function SEOHead({
   title,
   description,
   serviceName,
+  faqs = [],
+  breadcrumbs = [],
 }) {
   const { pathname } = useLocation();
   const canonicalUrl = `${businessInfo.websiteUrl}${pathname === '/' ? '' : pathname}`;
@@ -18,7 +20,7 @@ export default function SEOHead({
       : `${title} | ${businessInfo.name}`;
     document.title = fullTitle;
 
-    // 2. Helper to set or create meta tags
+    // 2. Set Meta Tags
     const setMetaTag = (attrName, attrValue, content) => {
       let element = document.querySelector(`meta[${attrName}="${attrValue}"]`);
       if (!element) {
@@ -43,7 +45,7 @@ export default function SEOHead({
     }
     canonicalLink.setAttribute('href', canonicalUrl);
 
-    // 4. Inject LocalBusiness + Service JSON-LD Structured Data
+    // 4. LocalBusiness Schema
     const schemaId = 'schema-top-cool-service';
     let scriptTag = document.getElementById(schemaId);
     if (!scriptTag) {
@@ -53,58 +55,84 @@ export default function SEOHead({
       document.head.appendChild(scriptTag);
     }
 
-    const structuredData = {
-      '@context': 'https://schema.org',
-      '@type': 'HomeAndConstructionBusiness',
-      name: businessInfo.name,
-      url: businessInfo.websiteUrl,
-      telephone: businessInfo.phoneRaw,
-      email: businessInfo.email,
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Dahisar, Mumbai',
-        addressRegion: 'Maharashtra',
-        addressCountry: 'IN',
-      },
-      areaServed: businessInfo.localities.map((loc) => ({
-        '@type': 'City',
-        name: `${loc}, Mumbai/Thane`,
-      })),
-      openingHoursSpecification: [
-        {
-          '@type': 'OpeningHoursSpecification',
-          dayOfWeek: [
-            'Monday',
-            'Tuesday',
-            'Wednesday',
-            'Thursday',
-            'Friday',
-            'Saturday',
-            'Sunday',
-          ],
-          opens: '08:00',
-          closes: '22:00',
+    const graph = [
+      {
+        '@type': 'HomeAndConstructionBusiness',
+        '@id': `${businessInfo.websiteUrl}/#business`,
+        name: businessInfo.name,
+        url: businessInfo.websiteUrl,
+        telephone: businessInfo.phoneRaw,
+        email: businessInfo.email,
+        priceRange: '₹₹',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Dahisar, Mumbai',
+          addressRegion: 'Maharashtra',
+          addressCountry: 'IN',
         },
-      ],
-      priceRange: '₹₹',
-    };
+        areaServed: businessInfo.localities.map((loc) => ({
+          '@type': 'City',
+          name: `${loc}, Mumbai/Thane`,
+        })),
+        openingHoursSpecification: [
+          {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: [
+              'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday',
+            ],
+            opens: '08:00',
+            closes: '22:00',
+          },
+        ],
+      },
+    ];
+
+    // 5. Add BreadcrumbList Schema (if provided)
+    if (breadcrumbs.length > 0) {
+      graph.push({
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbs.map((crumb, idx) => ({
+          '@type': 'ListItem',
+          position: idx + 1,
+          name: crumb.name,
+          item: crumb.url.startsWith('http') ? crumb.url : `${businessInfo.websiteUrl}${crumb.url}`,
+        })),
+      });
+    }
+
+    // 6. Add FAQPage Schema (if faqs provided)
+    if (faqs.length > 0) {
+      graph.push({
+        '@type': 'FAQPage',
+        mainEntity: faqs.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: f.a,
+          },
+        })),
+      });
+    }
 
     if (serviceName) {
-      structuredData.makesOffer = {
+      graph[0].makesOffer = {
         '@type': 'Offer',
         itemOffered: {
           '@type': 'Service',
           name: serviceName,
           provider: {
-            '@type': 'LocalBusiness',
-            name: businessInfo.name,
+            '@id': `${businessInfo.websiteUrl}/#business`,
           },
         },
       };
     }
 
-    scriptTag.text = JSON.stringify(structuredData);
-  }, [title, description, canonicalUrl, serviceName]);
+    scriptTag.text = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': graph,
+    });
+  }, [title, description, canonicalUrl, serviceName, faqs, breadcrumbs]);
 
   return null;
 }

@@ -3,6 +3,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import FloatingWhatsApp from '../components/FloatingWhatsApp';
 import ScrollToTop from '../utils/ScrollToTop';
 
 export default function RootLayout() {
@@ -13,6 +14,7 @@ export default function RootLayout() {
       <main id="main-content">
         <Outlet />
       </main>
+      <FloatingWhatsApp />
       <Footer />
     </div>
   );

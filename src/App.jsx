@@ -9,6 +9,8 @@ import Services from './pages/Services';
 import ServiceDetail from './pages/ServiceDetail';
 import About from './pages/About';
 import ServiceAreas from './pages/ServiceAreas';
+import LocalityDetail from './pages/LocalityDetail';
+import BrandMatrixLanding from './pages/BrandMatrixLanding';
 import FAQ from './pages/FAQ';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
@@ -31,9 +33,14 @@ function App() {
           <Route path="clothes-dryer-repair" element={<ServiceDetail />} />
           <Route path="dishwasher-repair" element={<ServiceDetail />} />
 
-          {/* Business & Information Pages */}
+          {/* Business & Regional Locality Hubs */}
           <Route path="about" element={<About />} />
           <Route path="service-areas" element={<ServiceAreas />} />
+          <Route path="service-areas/:localitySlug" element={<LocalityDetail />} />
+
+          {/* Programmatic Brand + Appliance + Locality SEO Matrix */}
+          <Route path="repair/:targetKey" element={<BrandMatrixLanding />} />
+
           <Route path="faq" element={<FAQ />} />
           <Route path="contact" element={<Contact />} />
 
