@@ -1,0 +1,6 @@
+# Robots.txt for Top Cool Service
+User-agent: *
+Allow: /
+
+# Sitemap Location
+Sitemap: https://topcoolservice.com/sitemap.xml
